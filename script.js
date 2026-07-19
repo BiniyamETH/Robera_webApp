@@ -225,7 +225,11 @@ let scrollToNewReview = false;
 function startReviewsSync() {
   window.reviewsDB.subscribe((reviews) => {
     renderAllReviews(reviews);
-    if (scrollToNewReview) {
+    // A just-added review first arrives with createdAt still null (pending
+    // server timestamp), which sorts it to the *bottom* of the desc-ordered
+    // list instead of the top — skip scrolling until the server timestamp
+    // resolves and the new review actually lands in front.
+    if (scrollToNewReview && reviews[0] && reviews[0].createdAt) {
       scrollToNewReview = false;
       const firstCard = userReviewsEl.querySelector('.review-card');
       if (firstCard) firstCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
