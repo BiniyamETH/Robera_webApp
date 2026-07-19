@@ -1,0 +1,67 @@
+<!--
+  Static form definitions for Netlify's build-time form detection.
+  Netlify only registers forms it finds in the raw HTML of a page at deploy
+  time — it does not execute JavaScript, so the multi-step wizard and the
+  review form (whose fields are toggled with the `hidden` attribute by
+  script.js) need a plain, fully-visible duplicate here with matching
+  name="" attributes so Netlify knows which fields to expect.
+
+  This page is never linked to or shown to visitors. It only needs to be
+  included in the deployed site so Netlify's build step can crawl it.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+<meta charset="UTF-8">
+<title>Netlify form detection (not a real page)</title>
+</head>
+<body>
+
+<form name="quote-request" data-netlify="true" hidden>
+  <input type="hidden" name="form-name" value="quote-request">
+  <input type="text" name="postal_code">
+  <input type="checkbox" name="object_types" value="Artwork">
+  <input type="checkbox" name="object_types" value="TV">
+  <input type="checkbox" name="object_types" value="Furniture">
+  <input type="checkbox" name="object_types" value="Other">
+  <input type="text" name="object_other">
+  <input type="number" name="quantity">
+  <input type="radio" name="timeline" value="Urgent">
+  <input type="radio" name="timeline" value="To be discussed">
+  <input type="radio" name="timeline" value="Within 2 weeks">
+  <input type="radio" name="timeline" value="Within 1 month">
+  <input type="radio" name="timeline" value="Within a couple of months">
+  <input type="radio" name="wants_photos" value="yes">
+  <input type="radio" name="wants_photos" value="no">
+  <input type="file" name="photos" multiple>
+  <input type="text" name="name">
+  <input type="text" name="contact">
+  <textarea name="details"></textarea>
+</form>
+
+<form name="customer-review" data-netlify="true" hidden>
+  <input type="hidden" name="form-name" value="customer-review">
+  <input type="hidden" name="form_type" value="review">
+  <input type="text" name="name">
+  <input type="text" name="city">
+  <select name="service">
+    <option value="TV Mounting">TV Mounting</option>
+    <option value="Mirror Installation">Mirror Installation</option>
+    <option value="Furniture Assembly">Furniture Assembly</option>
+    <option value="Small Repairs">Small Repairs</option>
+    <option value="Sound & Soundbar Setup">Sound &amp; Soundbar Setup</option>
+    <option value="General Installation">General Installation</option>
+    <option value="Other">Other</option>
+  </select>
+  <select name="rating">
+    <option value="5">5</option>
+    <option value="4">4</option>
+    <option value="3">3</option>
+    <option value="2">2</option>
+    <option value="1">1</option>
+  </select>
+  <textarea name="text"></textarea>
+</form>
+
+</body>
+</html>
