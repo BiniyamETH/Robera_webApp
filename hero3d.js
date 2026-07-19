@@ -110,5 +110,9 @@
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    // animate()'s rAF loop keeps repainting on its own when motion isn't
+    // reduced, but that loop never starts in the reduceMotion path, so a
+    // resize would otherwise leave a stale, stretched frame on screen.
+    if (reduceMotion) renderer.render(scene, camera);
   });
 })();
