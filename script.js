@@ -31,6 +31,7 @@ const quoteForm = document.getElementById('quote-form');
 const formStatus = document.getElementById('form-status');
 
 const MAX_UPLOAD_BYTES = 15 * 1024 * 1024;
+const MAX_UPLOAD_FILES = 25;
 
 if (quoteForm) {
   quoteForm.addEventListener('submit', async (e) => {
@@ -44,6 +45,10 @@ if (quoteForm) {
     }
 
     const jobPhotosInput = document.getElementById('jobPhotos');
+    if (jobPhotosInput && jobPhotosInput.files.length > MAX_UPLOAD_FILES) {
+      formStatus.textContent = `Please choose at most ${MAX_UPLOAD_FILES} files (you selected ${jobPhotosInput.files.length}).`;
+      return;
+    }
     const oversizeFile = jobPhotosInput && Array.from(jobPhotosInput.files).find((f) => f.size > MAX_UPLOAD_BYTES);
     if (oversizeFile) {
       formStatus.textContent = `"${oversizeFile.name}" is over 15MB — please choose a smaller file.`;
@@ -149,6 +154,18 @@ if (wizardSteps.length) {
     goToStep(Math.max(wizardCurrent - 1, 1));
   });
 
+  // Enter's default action submits the form via the first submit button in
+  // the DOM — wizardSubmit — even though it's still `hidden` on earlier
+  // steps. Without this, pressing Enter while typing (e.g. the postal code)
+  // attempts a real submit with the later steps still empty instead of
+  // advancing to the next step like a user would expect.
+  quoteForm.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' || e.target.tagName === 'TEXTAREA') return;
+    if (wizardCurrent === wizardSteps.length) return;
+    e.preventDefault();
+    wizardNext.click();
+  });
+
   goToStep(1);
 }
 
@@ -175,7 +192,11 @@ function renderReview(review) {
   const city = review.city || 'GTA';
   const service = review.service || 'General';
   const text = review.text || '';
-  const rating = Math.max(1, Math.min(5, Number(review.rating) || 5));
+  // `|| 5` alone would also catch a *valid* explicit rating of 0 and bump it
+  // to 5 (0 is falsy) instead of clamping it to 1 like every other value —
+  // only fall back to 5 when the field is actually missing/non-numeric.
+  const rawRating = Number(review.rating);
+  const rating = Math.max(1, Math.min(5, Number.isFinite(rawRating) ? rawRating : 5));
 
   const card = document.createElement('div');
   card.className = 'review-card';
