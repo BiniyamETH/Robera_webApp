@@ -69,9 +69,11 @@ if (quoteForm) {
         quoteForm.reset();
         resetWizard();
       } else {
+        console.error('Quote form submission rejected:', res.status, await res.text().catch(() => ''));
         formStatus.textContent = 'Something went wrong. Please call or text instead.';
       }
-    } catch {
+    } catch (err) {
+      console.error('Quote form submission failed:', err);
       formStatus.textContent = 'Something went wrong. Please call or text instead.';
     } finally {
       wizardSubmit.disabled = false;
