@@ -27,6 +27,11 @@
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
+    // Without tone mapping, the key light blows the bolt head's flat cap
+    // out to solid white instead of a lit steel gray — ACES rolls off
+    // highlights instead of hard-clipping them.
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
 
     scene.add(new THREE.HemisphereLight(0xaeb8c9, 0x14171c, 0.55));
     const key = new THREE.DirectionalLight(0xffffff, 1.0);

@@ -48,7 +48,7 @@ nav a{
   height:100svh;
   display:flex;
   align-items:center;
-  background:radial-gradient(120% 90% at 75% 20%, #1f2530 0%, #14171c 60%);
+  background:radial-gradient(120% 90% at 75% 20%, #0a0a0a 0%, #0a0a0a 60%);
 }
 #hero-canvas{
   position:absolute;inset:0;width:100%;height:100%;
@@ -83,7 +83,7 @@ nav a{
   padding:15px 26px;border-radius:var(--radius);text-decoration:none;
   display:inline-flex;align-items:center;gap:10px;transition:transform .25s ease, background .25s ease;
 }
-.btn-solid{background:var(--amber);color:#14171c;font-weight:600;}
+.btn-solid{background:var(--amber);color:#000000;font-weight:600;}
 .btn-solid:hover{transform:translateY(-2px);}
 .btn-ghost{border:1px solid var(--line);color:var(--paper);}
 .btn-ghost:hover{border-color:var(--paper);}
@@ -129,7 +129,7 @@ section{padding:110px 6vw;position:relative;}
   border:1px solid var(--line);
 }
 .g1{grid-column:span 2;grid-row:span 2;background:linear-gradient(155deg,#2a3138,#1b1f26);}
-.g2{background:linear-gradient(155deg,#26343a,#1b1f26);}
+.g2{background:linear-gradient(155deg,#283034,#272c33);}
 .g3{background:linear-gradient(155deg,#332a22,#1b1f26);}
 .g4{grid-column:span 2;background:linear-gradient(155deg,#233029,#1b1f26);}
 .g5{background:linear-gradient(155deg,#2a2530,#1b1f26);}
@@ -258,7 +258,7 @@ section{padding:110px 6vw;position:relative;}
 /* ---------- STICKY MOBILE CTA ---------- */
 .sticky-cta{
   position:fixed;bottom:0;left:0;right:0;z-index:60;
-  background:var(--amber);color:#14171c;
+  background:var(--amber);color:#050607;
   display:none;justify-content:center;align-items:center;
   padding:16px;font-family:'JetBrains Mono';font-weight:600;text-decoration:none;
   font-size:0.85rem;letter-spacing:0.05em;text-transform:uppercase;
